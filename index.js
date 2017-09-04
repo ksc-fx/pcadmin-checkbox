@@ -1,3 +1,3 @@
-import checkboEle from "./src/checkbox.vue";
+import checkboxEle from "./src/checkbox.vue";
 
 export default checkboxEle;

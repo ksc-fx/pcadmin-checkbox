@@ -1,5 +1,5 @@
 <template>
-    <label class="ks-checkbox">
+    <label class="ks-checkbox" @click="handleClick">
         <span class="ks-checkbox__input"
               :class="{
             'is-disabled': disabled,
@@ -55,26 +55,38 @@
 </style>
 <script>
     export default{
-        name: 'button',
+        name: 'checkbox',
         props: {
             disabled: Boolean,
-            checked: Boolean,
+            checked: {
+                type: Boolean,
+                default: false
+            },
             indeterminate: Boolean,
             label: {}
         },
-        data () {
-            return {};
+        data() {
+            return {
+                isChecked: this.checked
+            };
         },
-        watch: {},
-        computed: {
-            isChecked() {
-                return !this.checked;
+        watch: {
+            checked(checked) {
+                this.isChecked = checked;
             }
         },
-        mounted () {
+        computed: {
+
+        },
+        mounted() {
         },
 
         methods: {
+            handleClick(e) {
+                this.isChecked = !this.isChecked;
+                e.checked = this.isChecked;
+                this.$emit('change', e);
+            }
         }
     };
 </script>
