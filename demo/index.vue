@@ -1,6 +1,6 @@
 <template>
     <div>
-        <checkbox @change="onChange">默认按钮</checkbox>
+        <ksCheckbox checked disabled @change="onChange">默认复选框</ksCheckbox>
     </div>
 </template>
 
@@ -8,11 +8,13 @@
 </style>
 
 <script>
-    import checkbox from '../src/checkbox.vue';
+    import ksCheckbox from '../src/checkbox.vue';
 
     export default {
         data () {
-            return {};
+            return {
+
+            };
         },
         mounted () {
         },
@@ -22,7 +24,7 @@
             }
         },
         components: {
-            checkbox
+            ksCheckbox
         }
     };
 </script>
