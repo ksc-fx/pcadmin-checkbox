@@ -9,7 +9,10 @@
         >
             <span class="ks-checkbox__inner"></span>
         </span>
-        <span class="ks-checkbox__label"><slot></slot></span>
+        <span class="ks-checkbox__label" v-if="$slots.default || label">
+            <slot></slot>
+            <template v-if="!$slots.default">{{label}}</template>
+        </span>
     </label>
 </template>
 <style lang="less" scoped>
@@ -96,6 +99,7 @@
 <script>
     export default{
         name: 'ksCheckbox',
+        componentName: 'ksCheckbox',
         props: {
             disabled: Boolean,
             checked: {
@@ -110,9 +114,19 @@
                 isChecked: this.checked
             };
         },
-        watch: {
-        },
+        watch: {},
         computed: {
+            _checkboxGroup() {
+                let parent = this.$parent;
+                while (parent) {
+                    if (parent.$options.componentName !== 'ksCheckboxGroup') {
+                        parent = parent.$parent;
+                    } else {
+                        return parent;
+                    }
+                }
+                return false;
+            }
         },
         mounted() {
         },
@@ -125,6 +139,21 @@
                 this.isChecked = !this.isChecked;
                 e.checked = this.isChecked;
                 this.$emit('change', e);
+                let value = this._checkboxGroup.value;
+                let index = value.indexOf(this.label);
+                if (index > -1) {
+                    value.splice(index, 1);
+                } else {
+                    value.push(this.label);
+                }
+            }
+        },
+
+        created() {
+            console.log(this._checkboxGroup.value, this.label);
+            let labelList = this._checkboxGroup.value || [];
+            if (labelList.indexOf(this.label) > -1) {
+                this.isChecked = true;
             }
         }
     };

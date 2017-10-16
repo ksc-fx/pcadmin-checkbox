@@ -17,7 +17,9 @@ import checkbox from 'pcadmin-checkbox';
 ### Data
 | 参数      | 说明          | 类型      | 是否必选                           | 可选值  | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |-------- |
+| label | 显示文案 | String | - | 字符 | 无 |
 | checked | 是否勾选 | Boolean | - | true:勾选，false:不勾选 | false |
+| disabled | 是否可用 | Boolean | - | true:可用，false:不可用 | false |
 
 
 ### Events
